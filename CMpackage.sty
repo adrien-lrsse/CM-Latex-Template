@@ -1,0 +1,293 @@
+\ProvidesPackage{CMpackage}[2023/09/16 Package CM]
+
+
+% Packages de mise en page et de formatage du texte
+\RequirePackage[verbose]{geometry} % Définition des marges et de la mise en page de la page
+\RequirePackage{fancyhdr} % Personnalisation des en-têtes et pieds de page
+
+% Packages de polices et de symboles
+\RequirePackage[T1]{fontenc} % Utilisation de l'encodage T1 pour les polices
+\RequirePackage{tgadventor} % Utilisation de la police "TeX Gyre Adventor"
+\RequirePackage{sansmathfonts} % Utilisation de polices sans empattement pour les mathématiques
+\RequirePackage{miama} % Utilisation de la police d'icônes "Miama"
+\RequirePackage{fourier} % Utilisation de la police mathématique Fourier
+\RequirePackage{pifont}
+
+% Packages de personnalisation de texte
+\RequirePackage{enumitem} % Personnalisation des listes numérotées
+\RequirePackage{lipsum} % Génération de faux texte (Lorem Ipsum)
+
+% Packages de personnalisation de chapitres
+\RequirePackage[Rejne]{fncychap} % Personnalisation des chapitres
+
+% Packages de personnalisation de tableaux et de figures
+\RequirePackage{graphicx} % Insertion d'images
+\RequirePackage[most]{tcolorbox} % Boîtes de couleur
+\RequirePackage{tabularx} % Tableaux avec des colonnes de largeur automatique
+\RequirePackage{float} % Personnalisation des objets flottants (figures et tableaux)
+
+% Packages pour les liens hypertexte
+\RequirePackage[hidelinks]{hyperref} % Création de liens hypertexte
+\RequirePackage{lastpage}
+
+
+% Packages de personnalisation de la table des matières
+\RequirePackage{titletoc} % Personnalisation de la table des matières
+\RequirePackage{tocloft} % Personnalisation de la table des matières
+\RequirePackage{etoc} % Personnalisation de la table des matières
+
+% Packages pour les listes à plusieurs colonnes
+\RequirePackage{multicol} % Création de colonnes multiples
+
+% Packages pour la création d'arbres (diagrammes)
+\RequirePackage{forest} % Création d'arbres (diagrammes)
+
+% Package pour l'insertion d'icônes Creative Commons
+\RequirePackage{ccicons} % Insertion d'icônes Creative Commons
+
+
+% Packages pour la création de boîtes avec des bordures
+\RequirePackage{mdframed} % Création de boîtes avec des bordures
+
+% Packages pour la création de graphiques avec TikZ
+\RequirePackage{tikz} % Création de graphiques avec TikZ
+\usetikzlibrary{arrows.meta, automata, positioning, quotes} % Bibliothèques TikZ supplémentaires
+
+% Package pour la couleur
+\RequirePackage{xcolor}
+
+\RequirePackage{datetime}
+
+% Changer la police par défaut en sans-serif
+\renewcommand*\familydefault{\sfdefault} 
+
+%Géométrie de la page
+\RequirePackage{geometry}
+\geometry{  % define marge and paper size
+    a4paper,
+    total={170mm,257mm},
+    left=20mm,  
+    top=20mm,
+}
+
+% Définition des couleurs
+\definecolor{pastel_red}{RGB}{254,157,136} 
+\definecolor{pastel_pink}{RGB}{255,205,194}
+\definecolor{red_definition}{RGB}{255,91,55}
+\definecolor{pastel_orange}{RGB}{255,229,197}
+\definecolor{orange}{RGB}{ 255, 160, 46 }
+\definecolor{pastel_violet}{RGB}{255,209,247}
+\definecolor{violet}{RGB}{191,69,170}
+\definecolor{blueremarque}{RGB}{ 34, 0, 189 }
+\definecolor{bluemethode}{RGB}{ 49, 171, 255 }
+
+
+
+%Style de Fancy pour le debut de document
+\fancypagestyle{main_title}{
+  \fancyhf{} % Efface tous les en-têtes et pieds de page actuels
+  \fancyhead[L]{\Author}
+  \fancyhead[R]{\Class\ -\ \Year}
+}
+
+
+\fancypagestyle{fancy}{%
+\fancyhf{}
+\fancyhead[L]{\textbf{\leftmark}}
+\fancyhead[R]{\Author}
+\fancyfoot[C]{%
+  \begin{tcolorbox}[enhanced,
+    frame hidden,
+    attach boxed title to top right={yshift=-\tcboxedtitleheight+1pt,xshift=1.25pt},
+    borderline north={1pt}{0pt}{black},
+    boxed title style={sharp corners=north,arc=2mm,frame hidden,colback=black,sidebyside},
+    coltitle=white,
+    title={\textbf{Page | \thepage\ sur \textcolor{black!50!white}{\pageref{LastPage}}}},
+    interior hidden,
+    overlay={\node[below,xshift=10mm] (A) at (interior.north west) {\Class \quad-\quad\Year};
+      \node[below] (C) at (interior.north) {\ccbyncsaeu};}
+    ]
+  \end{tcolorbox}
+}
+}
+
+\fancypagestyle{chapter_pagestyle}{%
+\fancyhf{}
+\fancyhead[L]{\textbf{\doctitle\ - \docsubtitle}}
+\fancyhead[R]{\Author}
+\fancyfoot[C]{%
+  \begin{tcolorbox}[enhanced,
+    frame hidden,
+    attach boxed title to top right={yshift=-\tcboxedtitleheight+1pt,xshift=1.25pt},
+    borderline north={1pt}{0pt}{black},
+    boxed title style={sharp corners=north,arc=2mm,frame hidden,colback=black,sidebyside},
+    coltitle=white,
+    title={\textbf{Page | \thepage\ sur \textcolor{black!50!white}{\pageref{LastPage}}}},
+    interior hidden,
+    overlay={\node[below,xshift=10mm] (A) at (interior.north west) {\Class \quad-\quad\Year};
+      \node[below] (C) at (interior.north) {\ccbyncsaeu};}
+    ]
+  \end{tcolorbox}
+}
+
+}
+
+
+% Redéfinition de la commande \maketitle
+\makeatletter
+\renewcommand{\maketitle}{
+    \thispagestyle{empty}
+    \vspace*{\fill}
+    \begin{center}
+      \includegraphics[width=0.3\textwidth]{figures/school-logo.pdf}
+      \vspace{0.5cm}
+            \begin{tcolorbox}[colback=black!10, colframe=black, arc=4mm,width=0.8\textwidth]
+                \begin{center}
+                    \normalsize\noindent Cours Magistral \\
+                    \fontfamily{qag}\Huge{\textbf{\doctitle}} \\
+                    \fontfamily{qag}\LARGE{\docsubtitle}
+                \end{center}
+            \end{tcolorbox}
+            \begin{center}
+                \noindent\textcolor{black}{\rule{8cm}{0.75pt}} \\
+                \vspace{0.25cm}
+                \fontfamily{qag}\large\textbf{\Author} \\
+                \noindent\textcolor{black}{\rule{8cm}{0.75pt}} \\
+                \vspace{0.5cm}
+                \normalsize\normalfont\Class\quad -\quad\Year \\
+            \end{center}
+            \begin{center}
+                \textit{\today}
+            \end{center}
+    \end{center}
+    \vfill
+    \vfill
+    \vspace*{\fill}
+    \newpage
+}
+\makeatother
+
+\RequirePackage[french]{babel}
+\addto\captionsfrench{%
+  \renewcommand{\contentsname}{Table des matières}%
+}
+
+%personalisation des tcolorbox
+\newtheorem{definition}{Définition}[section]
+\newtheorem{proposition}{Proposition}[section]
+\newtheorem{theorem}{Théorème}[section]
+\newtheorem{example}{Exemple}[section]
+\newtheorem{remarque}{Remarque}[section]
+
+
+\newcounter{definitionsection}[chapter]
+\renewcommand{\thedefinitionsection}{\thechapter.\arabic{definitionsection}}
+\newcounter{propositionsection}[chapter]
+\renewcommand{\thepropositionsection}{\thechapter.\arabic{propositionsection}}
+\newcounter{theoremsection}[chapter]
+\renewcommand{\thetheoremsection}{\thechapter.\arabic{theoremsection}}
+\newcounter{examplesection}[chapter]
+\renewcommand{\theexamplesection}{\thechapter.\arabic{examplesection}}
+\newcounter{methodesection}[chapter]
+\renewcommand{\themethodesection}{\thechapter.\arabic{methodesection}}
+\newcounter{remarquesection}[chapter]
+\renewcommand{\theremarquesection}{\thechapter.\arabic{remarquesection}}
+
+
+
+\newcommand{\makedefinition}[2]{
+  \stepcounter{definitionsection}
+  \begin{tcolorbox}[enhanced,attach boxed title to top left={yshift=-3mm,yshifttext=-1mm,xshift=3mm},
+    colback=pastel_pink!50!white,colframe=red,colbacktitle=red,
+    title=\textbf{Définition \thedefinitionsection\ : #1},
+    boxed title style={size=small,colframe=red} ]
+    #2
+  \end{tcolorbox}
+}
+
+
+\newcommand{\makeproposition}[2]{
+  \stepcounter{propositionsection}
+  \begin{tcolorbox}[enhanced,attach boxed title to top left={yshift=-3mm,yshifttext=-1mm,xshift=3mm},
+    colback=pastel_orange!50!white,colframe=orange,colbacktitle=orange,
+    title=\textbf{Proposition \thepropositionsection\ : #1},
+    boxed title style={size=small,colframe=orange} ]
+    #2
+  \end{tcolorbox}
+}
+
+
+\newcommand{\maketheoreme}[2]{
+  \stepcounter{theoremsection}
+  \begin{tcolorbox}[enhanced,attach boxed title to top left={yshift=-3mm,yshifttext=-1mm,xshift=3mm},
+    colback=pastel_violet!50!white,colframe=violet,colbacktitle=violet,
+    title=\textbf{Théorème \thetheoremsection\ : #1},
+    boxed title style={size=small,colframe=violet} ]
+    #2
+  \end{tcolorbox}
+}
+
+\newcommand{\makeexample}[2]{
+  \stepcounter{examplesection}
+  \begin{mdframed}[linewidth=1pt, linecolor=black, leftline=true, rightline=false, topline=false, bottomline=false] % Personnalisez les options comme vous le souhaitez
+    \textbf{Exemple \theexamplesection\ : #1}
+    
+    #2
+    \end{mdframed}
+}
+
+\newcommand{\makecitation}[2]{
+  \begin{center}
+    \fmmfamily
+     \LARGE\textit{\og #2 \fg{}} \\
+      \normalfont\normalsize
+     \textbf{#1} 
+  \end{center}
+}
+
+\newcommand{\makemethode}[2]{
+  \stepcounter{methodesection}
+  \begin{tcolorbox}[enhanced,attach boxed title to top left={yshift=-3mm,yshifttext=-1mm,xshift=3mm},
+    colback=bluemethode!15!white,colframe=bluemethode,colbacktitle=bluemethode,
+    title=\textbf{Méthode \themethodesection\ : #1},
+    boxed title style={size=small,colframe=bluemethode} ]
+    #2
+  \end{tcolorbox}
+}
+
+\newcommand{\makefigure}[4]{
+  \begin{figure}[H]
+    \centering
+    \includegraphics[width=#1\linewidth]{figures/#2}
+    \caption{#3}
+    \label{#4}
+\end{figure}
+}
+
+
+\newcommand{\makeremarque}[1]{
+  \stepcounter{remarquesection}
+  \begin{tcolorbox}[enhanced,attach boxed title to top left={yshift=-3mm,yshifttext=-1mm,xshift=3mm},
+    colback=black!10,colframe=black!80,colbacktitle=black!80,
+    title=\textbf{Remarque \theremarquesection},
+    boxed title style={size=small,colframe=black!80} ]
+    #1
+  \end{tcolorbox}
+}
+
+\newcommand{\makeremarquewithtitle}[2]{
+  \stepcounter{remarquesection}
+  \begin{tcolorbox}[enhanced,attach boxed title to top left={yshift=-3mm,yshifttext=-1mm,xshift=3mm},
+    colback=black!10,colframe=black!80,colbacktitle=black!80,
+    title=\textbf{Remarque \theremarquesection\ : #1},
+    boxed title style={size=small,colframe=black!80} ]
+    #2
+  \end{tcolorbox}
+}
+
+\renewcommand{\thesection}{\Roman{section}}
+
+\setlist[itemize]{label=\textbullet}
+
+
+\pagestyle{fancy}
